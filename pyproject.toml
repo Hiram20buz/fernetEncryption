@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "fernetencryption"
+version = "0.1.0"
+description = ""
+authors = ["Hiram20buz"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+cryptography = "^41.0.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
