@@ -3,44 +3,33 @@ import sys
 from cryptography.fernet import Fernet
 
 
-def generateKey():
+def generateKey(file_path: str = "thekey.key"):
     key = Fernet.generate_key()
-    with open("thekey.key","wb") as thekey:
+    with open(file_path, "wb") as thekey:
         thekey.write(key)
 
 
-def readKey():
-    with open("thekey.key","rb") as key:
+def readKey(file_path: str = "thekey.key") -> str:
+    with open(file_path, "rb") as key:
         return key.read()
 
 
-def encrypt_file(file, key):
+def encrypt_file(file: str, key: str, encrypt: bool = True):
     with open(file,"rb") as thefile:
         contents = thefile.read()
-    contents_encrypted = Fernet(key).encrypt(contents)
+    if encrypt:
+        contents_file = Fernet(key).encrypt(contents)
+    else:
+        contents_file = Fernet(key).decrypt(contents)
     with open(file,"wb") as thefile:
-        thefile.write(contents_encrypted)
+        thefile.write(contents_file)
 
 
-def decrypt_file(file, key):
-    with open(file,"rb") as thefile:
-        contents = thefile.read()
-    contents_decrypted = Fernet(key).decrypt(contents)
-    with open(file,"wb") as thefile:
-        thefile.write(contents_decrypted)
-
-
-def encrypt_dir(directory_to_encrypt, key):
+def encrypt_dir(directory_to_encrypt: str, key: str, encrypt: bool = True):
     for root, dirs, files in os.walk(directory_to_encrypt):
         for file in files:
             file_path = os.path.join(root, file)
             print(file_path)
-            encrypt_file(file_path, key)
+            encrypt_file(file_path, key, encrypt)
 
             
-def decrypt_dir(directory_to_encrypt, key):
-    for root, dirs, files in os.walk(directory_to_encrypt):
-        for file in files:
-            file_path = os.path.join(root, file)
-            print(file_path)
-            decrypt_file(file_path, key)
