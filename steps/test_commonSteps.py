@@ -22,7 +22,17 @@ class TestCommonSteps(unittest.TestCase):
         commonSteps.encrypt_file("testsEnvironment/file.txt", key, False)
         c = open("testsEnvironment/file.txt").read()
         self.assertEqual(a, c)
-        
+
+    def test_encrypt_dir(self):
+        commonSteps.generateKey()
+        key = commonSteps.readKey()
+        a = open("testsEnvironment/file.txt").read()
+        commonSteps.encrypt_dir("./testsEnvironment", key)
+        b = open("testsEnvironment/file.txt").read()
+        self.assertNotEqual(a, b)
+        commonSteps.encrypt_dir("./testsEnvironment", key, False)
+        c = open("testsEnvironment/file.txt").read()
+        self.assertEqual(a, c)
 
 
 if __name__ == '__main__':
