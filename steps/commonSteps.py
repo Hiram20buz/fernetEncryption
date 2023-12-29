@@ -15,13 +15,13 @@ def readKey(file_path: str = "thekey.key") -> str:
 
 
 def encrypt_file(file: str, key: str, encrypt: bool = True):
-    with open(file,"rb") as thefile:
+    with open(file, "rb") as thefile:
         contents = thefile.read()
     if encrypt:
         contents_file = Fernet(key).encrypt(contents)
     else:
         contents_file = Fernet(key).decrypt(contents)
-    with open(file,"wb") as thefile:
+    with open(file, "wb") as thefile:
         thefile.write(contents_file)
 
 
