@@ -1,7 +1,7 @@
 name: Push Workflow
 
 on: push
-# this will cancel any running jobs for a PR when new commits are made.
+# this will cancel any running jobs for a PR when new commits are made
 concurrency:
   group: 'testingConcurrency'
   cancel-in-progress: true
