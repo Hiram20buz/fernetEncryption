@@ -1,8 +1,10 @@
-name: Pull Request Workflow
+name: Push Workflow
 
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+on: push
+# this will cancel any running jobs for a PR when new commits are made.
+concurrency:
+  group: 'testingConcurrency'
+  cancel-in-progress: true
 
 jobs:
   build:
