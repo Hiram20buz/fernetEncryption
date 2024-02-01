@@ -16,7 +16,7 @@ class TestCommonSteps(unittest.TestCase):
         commonSteps.generateKey()
         key = commonSteps.readKey()
         a = open("testsEnvironment/file.txt").read()
-        commonSteps.encrypt_file("testsEnvironment/file.txt", key)
+        commonSteps.encrypt_file("testsEnvironment/file3.txt", key)
         b = open("testsEnvironment/file.txt").read()
         self.assertNotEqual(a, b)
         commonSteps.encrypt_file("testsEnvironment/file.txt", key, False)
