@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Action to check out your repository's code
+
       - name: Install Python 3.11
         run: |
           sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -22,8 +25,23 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
 
-      - name: Checkout code
-        uses: actions/checkout@v2  # Action to check out your repository's code
+      - name: Run Tests with Poetry
+        run: |
+          poetry install
+          cd steps && poetry run python test_commonSteps.py
+
+  build2:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Run Tests with Poetry
         run: |
